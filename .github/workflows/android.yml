@@ -1,0 +1,1 @@
+$(file_content_fetcher:fetch(source_references=["uploaded:files (1).zip/android.yml"], query="Get the full content of the android.yml file"))
