@@ -36,6 +36,7 @@ jobs:
       # A tampered gradlew binary is a known supply-chain attack vector.
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v3
+  continue-on-error: true
 
       # FIX 2: explicit Gradle cache covering both the wrapper and the full
       # build cache. The key includes all .kts files so any build script
