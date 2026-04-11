@@ -5,16 +5,31 @@ plugins {
 }
 
 android {
-    namespace = "com.onisong.exe"
-    compileSdk = 35
+    namespace   = "com.createexe.exe"
+    compileSdk  = 35
+
     defaultConfig {
-        applicationId = "com.onisong.exe"
-        minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        applicationId   = "com.createexe.exe"
+        minSdk          = 26
+        targetSdk       = 35
+        versionCode     = 1
+        versionName     = "0.1.0"
     }
+
     buildFeatures { compose = true }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions { jvmTarget = "17" }
+
+    packaging {
+        resources {
+            excludes += setOf("/META-INF/AL2.0", "/META-INF/LGPL2.1", "/META-INF/LICENSE.md", "/META-INF/LICENSE-notice.md")
+        }
+    }
 }
 
 dependencies {
@@ -23,5 +38,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-service:2.8.3")
+    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("io.github.sceneview:sceneview:2.2.1")
 }
