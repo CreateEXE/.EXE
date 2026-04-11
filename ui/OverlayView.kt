@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.onisong.error.ui
+package com.onisong.exe.ui
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutSlowInEasing

@@ -1,4 +1,4 @@
-package com.onisong.error.core
+package com.onisong.exe.core
 
 // Every AI must reference this interface so they can "talk"
 interface SystemBridge {

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2026 Project.EXE / Onisong Error
+ * Copyright (c) 2026 .EXE / Onisong Error
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-package com.onisong.error.hemisphereB
+package com.onisong.exe.hemisphereB
 
-import com.onisong.error.core.SystemBridge
-import com.onisong.error.nodes.NodeStatus
-import com.onisong.error.nodes.SoulNode
+import com.onisong.exe.core.SystemBridge
+import com.onisong.exe.nodes.NodeStatus
+import com.onisong.exe.nodes.SoulNode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.time.Instant
