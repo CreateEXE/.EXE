@@ -1,78 +1,49 @@
 package com.createexe.exe.service
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
 import android.content.Intent
-import android.media.AudioManager
-import android.os.Build
 import android.os.IBinder
-import android.util.Log
-import android.view.WindowManager
-import com.createexe.exe.utils.TtsEngine
-import com.createexe.exe.utils.AnimationBridge
-import com.google.ar.sceneform.SceneView
+import androidx.core.app.NotificationCompat
+import com.createexe.exe.MainActivity
+import com.createexe.exe.system.SystemClockModule
+import com.createexe.exe.tts.TtsEngine
 
 class OverlayService : Service() {
-    private lateinit var sceneView: SceneView
-    private lateinit var ttsEngine: TtsEngine
-    private lateinit var animationBridge: AnimationBridge
-
-    companion object {
-        const val ACTION_START = "com.createexe.exe.ACTION_START"
-        const val ACTION_STOP = "com.createexe.exe.ACTION_STOP"
-        const val EXTRA_VRM_URI = "vrm_uri"
-    }
+    private val CHANNEL_ID = "exe_agent_channel"
+    private lateinit var tts: TtsEngine
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel()
-        // Initialize SceneView, TtsEngine, AnimationBridge, etc.
+        tts = TtsEngine(this)
+        showForegroundNotification()
+        
+        // Initial system check
+        val time = SystemClockModule.nowHuman()
+        tts.speak("System initialized at $time. EXE is online.")
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
-            ACTION_START -> {
-                handleStartAction(intent)
-            }
-            ACTION_STOP -> {
-                handleStopAction()
-            }
-        }
-        return START_STICKY
-    }
+    override fun onBind(intent: Intent?): IBinder? = null
 
-    private fun handleStartAction(intent: Intent) {
-        val vrmUri = intent.getStringExtra(EXTRA_VRM_URI)
-        if (vrmUri != null) {
-            loadVrmModel(vrmUri)
-            // Start foreground service with a notification
-        }
-    }
-
-    private fun loadVrmModel(vrmUri: String) {
-        // Logic to load VRM/GLB models into SceneView
-    }
-
-    private fun handleStopAction() {
-        stopForeground(true)
-        stopSelf()
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "OverlayServiceChannel",
-                "Overlay Service Channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
+    private fun showForegroundNotification() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val manager = getSystemService(NotificationManager::class.java)
-            manager?.createNotificationChannel(channel)
+            manager.createNotificationChannel(NotificationChannel(
+                CHANNEL_ID, "EXE Agent", NotificationManager.IMPORTANCE_LOW
+            ))
         }
+
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("× ./.EXE Active")
+            .setContentText("Edge Agent logic and 3D environment running.")
+            .setSmallIcon(android.R.drawable.ic_menu_compass)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .build()
+
+        startForeground(1, notification)
+    }
+
+    override fun onDestroy() {
+        tts.destroy()
+        super.onDestroy()
     }
 }
-
