@@ -1,0 +1,1 @@
+{ "version": "1.0.0", "inference_backend": "llama.cpp", "hemispheres": { "left": { "role": "LogicAuditor" }, "right": { "role": "CreativeCore" } }, "offline_mode": true }
