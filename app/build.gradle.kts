@@ -83,7 +83,7 @@ dependencies {
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-service:2.8.3")
-    implementation("androidx.lifecycle:lifecycle-compose:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.3")
 
     // SavedState
